@@ -22,7 +22,7 @@ This software is a mainly related to customer individuals who are intrested in t
 The process is filter by position to Offical position.
 
 ## Definitions:
-	HLS : Home Loan Service
+  HLS : Home Loan Service
   Portal : Official Online Web Application
   KPI : Key Performance Indicator
   CIBI Score : Credit Information Bureau India Ltd.
