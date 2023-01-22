@@ -61,45 +61,34 @@ COntinue to the regular loan period if three consecutive EMI missed by the custo
 ## NonFunctional Requirement:
 
 ### Security
-System will provide access to  the content , operations using Role based security (Authorization) (Permissions based on Role)
-Using SSL in all transactions  which will be performed stakeholder. It would protect confidential information shared by system to stake holder of Shared by stakeholder to system.
-System will automatically log of  all stakeholder after some time due to inactiveness.
-System will block operations for inactive  stakeholder and would redirect for authentication.
-System  will internally maintain secure communiction channel between Servers ( Web Servers, App Servers, databse Server)
-Sensitive data will be always encrypted across communcation.
-User proper firewall to protect servers from out side fishing, velnerable attacks.
-
-
-### Reliability
-The system will backup business data on regular basis and recover in short time duration to keep system operational
-Continous updates are matained , continous Adminstration is done to keep system operational.
-During peak hours system will maintain same user experaince by managing load balacning .
-
-### Availability
-uptime:   24* 7  available  99.999%
-	
-### Maintainability:
-A Commercial database software will be used to maintain System data Persistence.
-A readymade Web Server will be installed to host online shopping portal (Web Site) to management server capabilities.
-IT operations team will easily monitor and configure System using Adminstrative tools provided by Servers.
-Separate enviornment will be maintained for system for isolation in  production, testing, and development.
-
-### Portablility:
-PDA: Portable Device Application
-System will provide portable User Interface ( HTML, CSS, JS) through  users will be able to access online shopping portal.
-System can be deployed to single server, multi server, to any OS, Cloud (Azure or AWS or GCP)
-
-### Accessibility:
-
-
-### Durability:
-
-
-### Efficiency:
-
-### Modularity:
+Measures to protect sensitive personal and financial information from unauthorized access, theft, or damage. 
+Multiple layers of cyber security to reduce financial losses from the hackers.
+Multiple incorrect logins should lead to temporary deactivation of account, which can lower risk of theft or misuse data.
+System will provide access to content and operations using role-based security (Authorization) and (Permission based on roles)
 
 ### Scalability:
 
-### Safety:	
+The ability to handle increased demand for the service without significant performance degradation and able to reply to the user in minimum amount of time. 
+The load on the server should not cause strain on the system resources.
+
+### Availability
+The service should be available for use at all times, with minimal downtime for maintenance or updates.
+
+### Usability
+
+The service should be easy for customers to use, with a clear and intuitive user interface. the user-friendly UI will also lead to scalability of the product. 
+The service should be accessible to customers with disabilities, in compliance with relevant laws and guidelines.
+
+### Performance
+
+The service should be fast and responsive to the client.
+The service should be given with minimal delays or errors to the client.
+
+	
+### Maintainability:
+ The service should be easy to maintain and update, with clear documentation and procedures.
+This refers to all those requirements that relate to the ease with which an end user might be least affected even during the course of a maintenance activity.
+
+### Support
+The service should have a dedicated support team available to assist customers with any issues or questions.
 
