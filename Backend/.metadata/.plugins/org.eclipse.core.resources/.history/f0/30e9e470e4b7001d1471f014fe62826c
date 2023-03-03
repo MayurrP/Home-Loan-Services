@@ -1,0 +1,17 @@
+package com.cjc.ethicalhomeloan.webapp.main.serviceinterface;
+
+import com.cjc.ethicalhomeloan.webapp.main.model.BranchAddress;
+
+public interface BranchAddressServiceI {
+
+	public BranchAddress saveBranchAddress(BranchAddress ba);
+
+	public Iterable<BranchAddress> getAllBranchAddress();
+
+	public BranchAddress updateBranchAddress(Integer branchAddressId, BranchAddress ba);
+
+	public BranchAddress getSingleBranchAddress(Integer branchAddressId);
+
+	public void deleteBranchAddress(Integer branchAddressId);
+
+}

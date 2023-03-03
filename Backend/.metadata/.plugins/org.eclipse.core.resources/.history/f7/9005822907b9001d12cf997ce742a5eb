@@ -1,0 +1,47 @@
+package com.app.serviceImpl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+
+import org.springframework.stereotype.Service;
+
+import com.cjc.ethicalhomeloan.webapp.main.model.DependentInfo;
+import com.cjc.ethicalhomeloan.webapp.main.repository.DependentInfoRepository;
+import com.cjc.ethicalhomeloan.webapp.main.serviceinterface.DependentInfoInterface;
+
+@Service
+public class DependentInfoServiceImpl  implements DependentInfoInterface{
+	@Autowired
+	DependentInfoRepository dir;
+
+	@Override
+	public DependentInfo saveDependentInfoData(DependentInfo d) {
+		DependentInfo dep	=dir.save(d);
+		return dep;
+	}
+
+	@Override
+	public Iterable<DependentInfo> getAlldependentInfoData() {
+Iterable<DependentInfo> did	=dir.findAll();
+		return did;
+	}
+
+	@Override
+	public DependentInfo updateDependentInfoData(DependentInfo dependentInfoId) {
+		DependentInfo sud	=dir.save(dependentInfoId);
+		return sud;
+	}
+
+	@Override
+	public String deleteDependentInfoData(Integer dependentInfoId) {
+		dir.deleteById(dependentInfoId);
+		return "delete Succesfully...";
+	}
+
+	 
+	
+
+	 
+
+	
+}

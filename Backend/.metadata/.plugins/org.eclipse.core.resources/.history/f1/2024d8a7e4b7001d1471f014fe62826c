@@ -1,0 +1,19 @@
+package com.cjc.ethicalhomeloan.webapp.main.serviceinterface;
+
+import java.util.List;
+
+import com.cjc.ethicalhomeloan.webapp.main.model.EducationalInformation;
+
+public interface EducationalInformationServiceInterface {
+
+	public EducationalInformation saveEducationalInformation(EducationalInformation education);
+
+	public List<EducationalInformation> getAllEducationalInformation();
+
+	public EducationalInformation getSingleEducationalInformation(EducationalInformation eduInformation,Integer educationId);
+
+	public void deleteEducationalInformation(Integer educationId);
+
+	public EducationalInformation updateEducationalInformation(Integer educationId,EducationalInformation educationalInformation);
+
+}

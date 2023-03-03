@@ -1,0 +1,27 @@
+package com.app.pojo;
+
+@Entity
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class PreviousLoan {
+	
+	
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id
+	private Integer previousLoanId;	
+	private Double previousLoanAmount;	
+	private Integer previousLoanTenure;	
+	private Double previousLoanpaidAmount;	
+	private Double previousLoanremainingAmount;	
+	private Integer previousLoandeafulterCount;
+	
+	private String previousLoanStatus;	
+	private String previousLoanRemark;	
+	
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	 private PreviousLoanBank previousLoanbankDetails;	
+
+
+}

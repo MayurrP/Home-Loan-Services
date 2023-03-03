@@ -1,0 +1,19 @@
+package com.cjc.ethicalhomeloan.webapp.main.serviceinterface;
+
+import java.util.List;
+
+import com.cjc.ethicalhomeloan.webapp.main.model.PropertyInfo;
+
+public interface PropertyInfoServiceInterface {
+
+	public PropertyInfo savePropertyInfo(PropertyInfo propertyinfo);
+
+	public List<PropertyInfo> getAllPropertyInfo();
+
+	public PropertyInfo getSinglePropertyInfo(Integer propertyId);
+
+	public void deletePropertyInfo(Integer propertyId);
+
+	public PropertyInfo updatePropertyInfo(PropertyInfo property);
+
+}

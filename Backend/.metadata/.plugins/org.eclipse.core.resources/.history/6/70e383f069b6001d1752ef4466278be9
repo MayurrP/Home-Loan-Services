@@ -1,0 +1,7 @@
+package com.app.pojo;
+
+public class Snippet {
+	@OneToOne(cascade = CascadeType.ALL)
+		private CustomerAddress customerAddress;
+}
+

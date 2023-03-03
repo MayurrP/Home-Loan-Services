@@ -1,0 +1,11 @@
+package com.app.service;
+
+import com.app.pojo.Cibil;
+
+public interface CibilI {
+	
+	public Cibil saveData(Cibil c);
+	public Iterable<Cibil> getAllCibilData() ;
+	public Cibil getSingleData(Integer cibilId);
+
+}

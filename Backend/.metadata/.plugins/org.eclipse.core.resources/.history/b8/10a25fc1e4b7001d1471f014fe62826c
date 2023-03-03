@@ -1,0 +1,20 @@
+package com.cjc.ethicalhomeloan.webapp.main.serviceinterface;
+
+import com.cjc.ethicalhomeloan.webapp.main.model.Ledger;
+
+public interface LedgerInterface {
+
+   public 	Ledger ledgerSaveData(Ledger l);
+
+   public Iterable<Ledger> getAllLedgerData();
+
+   public Ledger updateLedgerData(Ledger ledger, Integer ledgerId);
+
+   public Ledger getSingleLedgerData(Integer ledgerId);
+
+  public void deleteLEdgerData(Integer ledgerId);
+	
+	
+
+
+}

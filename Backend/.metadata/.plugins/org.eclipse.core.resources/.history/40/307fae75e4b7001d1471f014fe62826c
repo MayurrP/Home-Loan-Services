@@ -1,0 +1,11 @@
+package com.cjc.ethicalhomeloan.webapp.main.serviceinterface;
+
+import com.cjc.ethicalhomeloan.webapp.main.model.Cibil;
+
+public interface CibilI {
+	
+	public Cibil saveData(Cibil c);
+	public Iterable<Cibil> getAllCibilData() ;
+	public Cibil getSingleData(Integer cibilId);
+
+}

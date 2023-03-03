@@ -1,0 +1,9 @@
+package com.cjc.ethicalhomeloan.webapp.main.exception;
+
+public class ValueNotValidException extends RuntimeException {
+	
+	public ValueNotValidException(String msg)
+	{
+		super(msg);
+	}
+}

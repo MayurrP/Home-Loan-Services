@@ -1,0 +1,51 @@
+package com.app.serviceImpl;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.app.pojo.EnquiryDetails;
+import com.app.repository.EnquiryDetailsRepository;
+import com.app.service.EnquiryDetailsServiceI;
+
+@Service
+public class EnquiryDetailsServiceImpl implements EnquiryDetailsServiceI {
+
+	@Autowired
+	EnquiryDetailsRepository edr;
+
+	
+	public EnquiryDetails saveEnquiryDetails(EnquiryDetails enqury)
+	{
+		
+		return edr.save(enqury);
+	}
+
+	
+	public EnquiryDetails getSingleEnquiryDetails(int id)
+	{
+	   Optional<EnquiryDetails> e1=edr.findById(id);
+		return e1.get();
+	}
+
+	
+	public List<EnquiryDetails> getAllEnquiryDetails()
+	{
+		
+		return edr.findAll();
+	}
+
+	
+	public void deleteEnquiry(int id) 
+	{
+	    edr.deleteById(id);		 
+	}
+
+	
+	public EnquiryDetails editEnquiry(EnquiryDetails enquiry) {
+		return edr.save(enquiry);
+	}
+}
+
