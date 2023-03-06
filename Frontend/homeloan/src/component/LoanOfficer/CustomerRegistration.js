@@ -28,8 +28,15 @@ const CustomerRegistration = () => {
             {step === 5 && <GuarantorDetails />}
             {step === 6 && <DocUpload />}
 
-            <button onClick={handleBack} disabled={step === 1}>Back</button>
-            <button onClick={handleNext} disabled={step === 6}>Next</button>
+            <div class="row g-3 pt-2">
+                <div class="col-12">
+                    <button type="button" class="btn btn-outline-warning"
+                        onClick={handleBack} disabled={step === 1}>Previous</button>&nbsp;&nbsp;
+                    <button type="button" class="btn btn-outline-success"
+                        onClick={handleNext} disabled={step === 6}>Next</button> &nbsp;&nbsp;
+                </div>
+            </div>
+
         </div>
     );
 }

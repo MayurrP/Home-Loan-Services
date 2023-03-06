@@ -107,7 +107,6 @@ const DocUpload = () => {
                 </div>
                 <div class="row g-3 pt-2">
                     <div class="col-12">
-                        <button type="button" class="btn btn-outline-warning">Previous</button>&nbsp;&nbsp;
                         <button type="submit" class="btn btn-outline-primary">Submit</button> &nbsp;&nbsp;
                     </div>
                 </div>

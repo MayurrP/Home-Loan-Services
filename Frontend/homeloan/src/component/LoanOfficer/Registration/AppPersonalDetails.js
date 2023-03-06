@@ -15,7 +15,10 @@ const AppPersonalDetails = () => {
                     <div className="row g-3 pt-2">
                         <div className="col-md-6" >
                             <label for="name" className="form-label">Name* :</label>
-                            <input type="text" className="form-control" id="name" placeholder="Enter Your Full Name" name="customerName"  />
+                            <input type="text" className="form-control" id="name" placeholder="Enter Your Full Name" 
+                            name="customerName"
+                            value
+                            onChange  />
                             {/* <span className="text-danger">Full Name is Required</span> */}
                         </div>
                         <div className="col-md-2">
