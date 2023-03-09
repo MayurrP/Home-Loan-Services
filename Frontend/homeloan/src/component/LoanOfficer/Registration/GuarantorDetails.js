@@ -7,12 +7,24 @@ const GuarantorDetails = (props) => {
         guarantorName: "", guarantorMobileNumber: "", guarantorDateOfBirth: "",
         guarantorRelationshipwithCustomer: "", guarantorAdharCardNo: "",
         guarantorMortgageDetails: "", guarantorJobDetails: "", guarantorLoaclAddress: "",
-        guarantorPermanentAddress: "", mortgagePropertyValue: "", mortgagePropertyType: "",
-        mortgageLoanOnProperty: "",mortgagePropertyProof:"",mortgagePropertyInsurance:""
+        guarantorPermanentAddress: ""
     });
+    const[mortgagePropertyProof,setmortgagePropertyProof]=useState(null);
+    const[mortgagePropertyInsurance,setmortgagePropertyInsurance]=useState(null);
 
+    const handleChangePropertyProof = (event) => {
+        setmortgagePropertyProof(event.target.files[0]);
+    };
+    const handleChangePropertyInsurence = (event) => {
+        setmortgagePropertyInsurance(event.target.files[0]);
+    };
+
+    const[mortgageArr,setmortgageArr] = useState({
+        mortgagePropertyValue: "", mortgagePropertyType: "",mortgageLoanOnProperty: ""
+    })
     const handleChangeGurantor = (e) => {
         setgurantorArr({ ...gurantorArr, [e.target.name]: e.target.value });
+        setmortgageArr({ ...mortgageArr, [e.target.name]: e.target.value });
     };
 
     const addGurantor = () => {
@@ -23,8 +35,14 @@ const GuarantorDetails = (props) => {
             guarantorPermanentAddress: "", mortgagePropertyValue: "", mortgagePropertyType: "",
             mortgageLoanOnProperty: "",mortgagePropertyProof:"",mortgagePropertyInsurance:""
         })
+        setmortgageArr({
+
+        })
         props.onGuarantorDetails(gurantorArr);
-        console.log(gurantorArr);
+        props.onGuarantorMortage(mortgageArr);
+        props.onFile4(mortgagePropertyProof);
+        props.onFile5(mortgagePropertyInsurance);
+        //console.log(gurantorArr);
     }
 
 
@@ -103,30 +121,33 @@ const GuarantorDetails = (props) => {
                             <div class="col-md-4">
                                 <label for="inputmPropertyType" class="form-label">Mortage Property Type :</label>
                                 <input type="text" class="form-control" id="inputmPropertyType" placeholder="Enter Property Type"
-                                    name="mortgagePropertyType" value={gurantorArr.mortgagePropertyType} onChange={handleChangeGurantor} />
+                                    name="mortgagePropertyType" value={mortgageArr.mortgagePropertyType} onChange={handleChangeGurantor} />
                             </div>
                             <div class="col-md-4">
                                 <label for="inputmPropertyValue" class="form-label">Mortage Property Value :</label>
                                 <input type="text" class="form-control" id="inputmPropertyValue" placeholder="Enter Property value"
-                                    name="mortgagePropertyValue" value={gurantorArr.mortgagePropertyValue} onChange={handleChangeGurantor} />
+                                    name="mortgagePropertyValue" value={mortgageArr.mortgagePropertyValue} onChange={handleChangeGurantor} />
                             </div>
                             <div class="col-md-4">
                                 <label for="inputmLoanOnProperty" class="form-label">Loan On Property :</label>
                                 <input type="number" class="form-control" id="inputmLoanOnProperty" placeholder="Enter Amount"
-                                    name="mortgageLoanOnProperty" value={gurantorArr.mortgageLoanOnProperty} onChange={handleChangeGurantor} />
+                                    name="mortgageLoanOnProperty" value={mortgageArr.mortgageLoanOnProperty} onChange={handleChangeGurantor} />
                             </div>
                         </div>
                         <div class="was-validated">
                             <div class="row g-3 pt-2">
                                 <div class="col-md-4">
                                     <label for="mPropertyProof" class="form-label">Property Proof :</label>
-                                    <input type="file" class="form-control" aria-label="file example" required name="propertyproof" value={gurantorArr.propertyproof} onChange={handleChangeGurantor} />
+                                    <input type="file" class="form-control" aria-label="file example" required name="propertyproof"
+                                    onChange={handleChangePropertyProof} />
                                     <div class="invalid-feedback">Please Select File</div>
                                 </div>
 
                                 <div class="col-md-4">
                                     <label for="mPropertyInscurance" class="form-label">Property Insurance :</label>
-                                    <input type="file" class="form-control" aria-label="file example" required name="propertyinsurance" value={gurantorArr.propertyinsurance} onChange={handleChangeGurantor} />
+                                    <input type="file" class="form-control" aria-label="file example" required 
+                                    name="propertyinsurance" 
+                                    onChange={handleChangePropertyInsurence} />
                                     <div class="invalid-feedback">Please Select File</div>
                                 </div>
                             </div>

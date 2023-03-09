@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import axios from "axios";
+//import axios from "axios";
 const LocalAddress = (props) => {
 
     let [localArr, setlocalArr] = useState({
-        inputareaname: "", cityname: "", district: "", state: "", pincode: "", houseNumber: "",
+        areaname: "", cityname: "", district: "", state: "", pincode: "", houseNumber: "",
         streetName: ""
     });
 
@@ -14,23 +14,23 @@ const LocalAddress = (props) => {
     }
     const addAddressData = () => {
         setlocalArr({
-            inputareaname: "", cityname: "", district: "", state: "", pincode: "", houseNumber: "",
+            areaname: "", cityname: "", district: "", state: "", pincode: "", houseNumber: "",
             streetName: ""
         })
         props.onLocalAddress(localArr);
-        console.log(localArr);
+        //console.log(localArr);
 
-        axios.post('http://localhost:8080/localaddresscontroller/localaddress', {
-            inputareaname:localArr.inputareaname, 
-            cityname:localArr.cityname, 
-            district:localArr.district, 
-            state:localArr.state, 
-            pincode:localArr.pincode, 
-            houseNumber:localArr.houseNumber,
-            streetName:localArr.streetName,
-          }).then(() => {
-            console.log("success");
-          });
+        // axios.post('http://localhost:8080/localaddresscontroller/localaddress', {
+        //     areaname:localArr.inputareaname, 
+        //     cityname:localArr.cityname, 
+        //     district:localArr.district, 
+        //     state:localArr.state, 
+        //     pincode:localArr.pincode, 
+        //     houseNumber:localArr.houseNumber,
+        //     streetName:localArr.streetName,
+        //   }).then(() => {
+        //     console.log("success");
+        //   });
     
     }
     return (
@@ -57,7 +57,7 @@ const LocalAddress = (props) => {
                             </div>
                             <div className="col-md-4">
                                 <label for="inputareaname" className="form-label">Area Name :</label>
-                                <input type="text" className="form-control" id="inputareaname" placeholder="Enter Area Name" name="inputareaname" value={localArr.inputareaname} onChange={handleChangeAddress} />
+                                <input type="text" className="form-control" id="inputareaname" placeholder="Enter Area Name" name="areaname" value={localArr.areaname} onChange={handleChangeAddress} />
                             </div>
                             <div className="col-md-4">
                                 <label for="inputlocalstreetname" className="form-label">Street Name :</label>

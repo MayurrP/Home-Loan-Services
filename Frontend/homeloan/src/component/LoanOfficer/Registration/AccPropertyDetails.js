@@ -2,26 +2,46 @@ import React from "react";
 import { useState } from "react";
 
 const AccPropertyDetails = (props) => {
-
+    
+    const [propertydoc, setpropertydoc] = useState(null);
+    const handleChangeprodoc = (event) => {
+        setpropertydoc(event.target.files[0]);
+    };
+    const [priceproof, setpriceproof] = useState(null);
+    const handleChangepriceproof = (event) => {
+        setpriceproof(event.target.files[0]);
+    };
+    const [propertyArr, setpropertyArr] = useState({
+        propertyType: "", propertyArea: "", constructionArea: "", propertyPrice: "", constructionPrice: ""
+    })
     const [accproArr, setaccproArr] = useState({
-        accounType:"",accountBalance:"",accountHolderName:"",accountStatus:"",accountNumber:"",
-        propertyType:"",propertyArea:"",constructionArea:"",propertyPrice:"",constructionPrice:"",
-        propertyDocuments:"",priceProofs:"",areaname:"",cityname:"",district:"",state:"",pincode:"",
-        streetName:""});
+        accounType: "", accountBalance: "", accountHolderName: "", accountStatus: "", accountNumber: "",
+        areaname: "", cityname: "", district: "", state: "", pincode: "",
+        streetName: ""
+    });
 
     const handleChangeAccpro = (e) => {
         setaccproArr({ ...accproArr, [e.target.name]: e.target.value });
+        setpropertyArr({ ...propertyArr, [e.target.name]: e.target.value });
     };
 
     const addAccpro = () => {
         setaccproArr({
-            accounType:"",accountBalance:"",accountHolderName:"",accountStatus:"",accountNumber:"",
-        propertyType:"",propertyArea:"",constructionArea:"",propertyPrice:"",constructionPrice:"",
-        propertyDocuments:"",priceProofs:"",areaname:"",cityname:"",district:"",state:"",pincode:"",
-        streetName:""
+            accounType: "", accountBalance: "", accountHolderName: "", accountStatus: "", accountNumber: "",
+            areaname: "", cityname: "", district: "", state: "", pincode: "",
+            streetName: ""
         })
+        setpropertyArr({
+            propertyType: "", propertyArea: "", constructionArea: "", propertyPrice: "", constructionPrice: ""
+
+        })
+       
         props.onAccPropertyDetails(accproArr);
-        console.log(accproArr);
+        props.onAccPropertyDetailsArr(propertyArr);
+        props.onFile2(priceproof);
+        props.onFile3(propertydoc);
+        //console.log(accproArr);
+        //console.log(propertyArr);
     }
 
     return (
@@ -81,40 +101,44 @@ const AccPropertyDetails = (props) => {
                             <div class="col-md-4">
                                 <label for="inputpropertytype " class="form-label">Property Type :</label>
                                 <input type="text" class="form-control" id="inputpropertytype " placeholder="Enter Property Type "
-                                    name="propertyType" value={accproArr.propertyType} onChange={handleChangeAccpro} />
+                                    name="propertyType" value={propertyArr.propertyType} onChange={handleChangeAccpro} />
                             </div>
                             <div class="col-md-4">
                                 <label for="inputpropertyArea" class="form-label">Property Area :</label>
                                 <input type="number" class="form-control" id="inputpropertyArea " placeholder="Enter Property Area "
-                                    name="propertyArea" value={accproArr.propertyArea} onChange={handleChangeAccpro} />
+                                    name="propertyArea" value={propertyArr.propertyArea} onChange={handleChangeAccpro} />
                             </div>
                             <div class="col-md-4">
                                 <label for="inputconstructionArea" class="form-label">Construction Area :</label>
                                 <input type="number" class="form-control" id="inputaccountStatus " placeholder="Enter Construction Area"
-                                    name="constructionArea" value={accproArr.constructionArea} onChange={handleChangeAccpro} />
+                                    name="constructionArea" value={propertyArr.constructionArea} onChange={handleChangeAccpro} />
                             </div>
                             <div class="col-md-4">
                                 <label for="inputpropertyPrice " class="form-label">Property Price :</label>
                                 <input type="number" class="form-control" id="inputpropertyPrice " placeholder="Enter Property Price"
-                                    name="propertyPrice" value={accproArr.propertyPrice} onChange={handleChangeAccpro} />
+                                    name="propertyPrice" value={propertyArr.propertyPrice} onChange={handleChangeAccpro} />
                             </div>
                             <div class="col-md-4">
                                 <label for="constructionPrice" class="form-label">Construction Price :</label>
                                 <input type="number" class="form-control" id="constructionPrice " placeholder="Enter Construction Price"
-                                    name="constructionPrice" value={accproArr.constructionPrice} onChange={handleChangeAccpro} />
+                                    name="constructionPrice" value={propertyArr.constructionPrice} onChange={handleChangeAccpro} />
                             </div>
                         </div>
                         <div class="was-validated">
                             <div class="row g-3 pt-2">
                                 <div class="col-md-4">
-                                    <label for="inputsalaryslip" class="form-label">Property Documents :</label>
-                                    <input type="file" class="form-control" aria-label="file example" required name="propertydocuments" value={accproArr.propertydocuments} onChange={handleChangeAccpro} />
+                                    <label for="inputprodoc" class="form-label">Property Documents :</label>
+                                    <input type="file" class="form-control" aria-label="file example" required 
+                                    name="propertydocuments" 
+                                    onChange={handleChangeprodoc} />
                                     <div class="invalid-feedback">Please Select File</div>
                                 </div>
 
                                 <div class="col-md-4">
-                                    <label for="inputsalaryslip" class="form-label">Price Proof :</label>
-                                    <input type="file" class="form-control" aria-label="file example" required name="priceproof" value={accproArr.priceproof} onChange={handleChangeAccpro} />
+                                    <label for="inputpriceproof" class="form-label">Price Proof :</label>
+                                    <input type="file" class="form-control" aria-label="file example" required 
+                                    name="priceproof"  
+                                    onChange={handleChangepriceproof} />
                                     <div class="invalid-feedback">Please Select File</div>
                                 </div>
                             </div>
@@ -184,10 +208,10 @@ const AccPropertyDetails = (props) => {
 
                             </div>
                             <br></br>
-                        <div align="center">
-                            <button type="button" className="btn btn-info"
-                                onClick={addAccpro} >Save</button>&nbsp;&nbsp;
-                        </div>
+                            <div align="center">
+                                <button type="button" className="btn btn-info"
+                                    onClick={addAccpro} >Save</button>&nbsp;&nbsp;
+                            </div>
                         </div>
                     </div>
                 </div>

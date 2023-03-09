@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from 'react';
-import axios, { Axios } from "axios";
+//import axios from "axios";
 
 const AppPersonalDetails = (props) => {
 
@@ -8,7 +8,7 @@ const AppPersonalDetails = (props) => {
         customerName: "", customerDateOfBirth: "",
         customerAge: "", customerGender: "", customerEmail: "", customerMobileNumber: "",
         customerAdditionalMobileNumber: "", customerAmountPaidForHome: "", customerTotalLoanRequired: "",
-        fatherName: "", motherName: "", noOfFamilyMember: "",
+        educationType:"",fatherName: "", motherName: "", noOfFamilyMember: "",
         noOfChild: "", maritalStatus: "", dependentMember: "", familyIncome: "", spouseName: ""
     });
 
@@ -23,24 +23,24 @@ const AppPersonalDetails = (props) => {
             customerName: "", customerDateOfBirth: "",
             customerAge: "", customerGender: "", customerEmail: "", customerMobileNumber: "",
             customerAdditionalMobileNumber: "", customerAmountPaidForHome: "", customerTotalLoanRequired: "",
-            fatherName: "", motherName: "", noOfFamilyMember: "",
+            educationType:"",fatherName: "", motherName: "", noOfFamilyMember: "",
             noOfChild: "", maritalStatus: "", dependentMember: "", familyIncome: "", spouseName: ""
         })
         props.onAppPersonalDetails(appPersonalArr);
-        console.log(appPersonalArr);
+        //console.log(appPersonalArr);
 
-        axios.post('http://localhost:8080/dependentinfocontroller/dependentInfoData',{
-            fatherName:appPersonalArr.fatherName,
-            motherName:appPersonalArr.motherName,
-            noOfFamilyMember:appPersonalArr.noOfFamilyMember,
-            noOfChild:appPersonalArr.noOfChild, 
-            maritalStatus:appPersonalArr.maritalStatus, 
-            dependentMember:appPersonalArr.dependentMember, 
-            familyIncome:appPersonalArr.familyIncome, 
-            spouseName:appPersonalArr.spouseName
-        }).then(() => {
-            console.log("success");
-        })
+        // axios.post('http://localhost:8080/dependentinfocontroller/dependentInfoData',{
+        //     fatherName:appPersonalArr.fatherName,
+        //     motherName:appPersonalArr.motherName,
+        //     noOfFamilyMember:appPersonalArr.noOfFamilyMember,
+        //     noOfChild:appPersonalArr.noOfChild, 
+        //     maritalStatus:appPersonalArr.maritalStatus, 
+        //     dependentMember:appPersonalArr.dependentMember, 
+        //     familyIncome:appPersonalArr.familyIncome, 
+        //     spouseName:appPersonalArr.spouseName
+        // }).then(() => {
+        //     console.log("success");
+        // })
     }
 
     return (

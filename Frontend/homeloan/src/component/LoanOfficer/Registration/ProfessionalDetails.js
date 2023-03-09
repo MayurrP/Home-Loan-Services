@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from 'react';
-import axios from "axios";
+//import axios from "axios";
 
 const ProfessionDetails = (props) => {
 
@@ -9,8 +9,12 @@ const ProfessionDetails = (props) => {
         setSelectedFile(event.target.files[0]);
     };
 
-    const [professionArr, setprofessionArr] = useState({
+    const [profArr, setprofArr] = useState({
         professiontype: "", professionsalary: "", professionsalaryType: "", professionworkingperiod: "",
+        professionDesignation: ""
+    })
+    const [professionArr, setprofessionArr] = useState({
+        previousLoanAmount: "", previousLoanTenure: "", previousLoanpaidAmount: "",
         previousLoanremainingAmount: "", previousLoandeafulterCount: "", previousLoanStatus: "", previousLoanRemark: "",
         branchName: "", branchCode: "", branchType: "", ifsccode: "", micrcode: "", conatctNumber: "", email: "",
         status: "", areaname: "", cityname: "", district: "", state: "", pincode: "", streetName: ""
@@ -18,30 +22,26 @@ const ProfessionDetails = (props) => {
 
     const handleChangeProfessional = (e) => {
         setprofessionArr({ ...professionArr, [e.target.name]: e.target.value });
+        setprofArr({ ...profArr, [e.target.name]: e.target.value });
     };
 
     const addProfession = async () => {
-        setprofessionArr({
+        setprofArr({
             professiontype: "", professionsalary: "", professionsalaryType: "", professionworkingperiod: "",
-            professionDesignation: "", previousLoanAmount: "", previousLoanTenure: "", previousLoanpaidAmount: "",
+            professionDesignation: ""
+        })
+        setprofessionArr({
+            previousLoanAmount: "", previousLoanTenure: "", previousLoanpaidAmount: "",
             previousLoanremainingAmount: "", previousLoandeafulterCount: "", previousLoanStatus: "", previousLoanRemark: "",
             branchName: "", branchCode: "", branchType: "", ifsccode: "", micrcode: "", conatctNumber: "", email: "",
             status: "", areaname: "", cityname: "", district: "", state: "", pincode: "", streetName: ""
         })
+        props.onProfessionDetailsprofArr(profArr);
         props.onProfessionDetails(professionArr);
-        console.log(professionArr);
+        props.onFile1(selectedFile);
+        //console.log(profArr);
 
-        axios.post('http://localhost:8080/PreviousLoanController/previousloan', {
-            previousLoanAmount: professionArr.previousLoanAmount,
-            previousLoanTenure: professionArr.previousLoanTenure,
-            previousLoanpaidAmount: professionArr.previousLoanpaidAmount,
-            previousLoanremainingAmount: professionArr.previousLoanremainingAmount,
-            previousLoandeafulterCount: professionArr.previousLoandeafulterCount,
-            previousLoanStatus: professionArr.previousLoanStatus,
-            previousLoanRemark: professionArr.previousLoanRemark,
-        }).then(() => {
-            console.log("success");
-        });
+        
 
         // axios.post('http://localhost:8080/PreviousLoanController/previousloan', {
         //     branchName: professionArr.branchName,
@@ -68,24 +68,36 @@ const ProfessionDetails = (props) => {
         //     console.log("success");
         // });
 
-        const formData = new FormData();
+        // const formData = new FormData();
 
-        formData.append('professionsalaryslips', selectedFile);
-        formData.append('professionArr', JSON.stringify(professionArr));
+        // formData.append('professionsalaryslips', selectedFile);
+        // formData.append('cust', JSON.stringify(profArr));
 
-        console.log(professionArr);
-        console.log(formData);
+        // //console.log(profArr);
+        // console.log(formData);
 
-        try {
-            const response = await axios.post('http://localhost:8080/Profession/profession/', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
-            console.log(response.data);
-        } catch (error) {
-            console.log(error);
-        }
+        // try {
+        //     const response = await axios.post('http://localhost:8080/Profession/profession/', formData, {
+        //         headers: {
+        //             'Content-Type': 'multipart/form-data'
+        //         }
+        //     });
+        // console.log(response.data);
+        // } catch (error) {
+        //     console.log(error);
+        // }
+
+        // axios.post('http://localhost:8080/PreviousLoanController/previousloan', {
+        //     previousLoanAmount: professionArr.previousLoanAmount,
+        //     previousLoanTenure: professionArr.previousLoanTenure,
+        //     previousLoanpaidAmount: professionArr.previousLoanpaidAmount,
+        //     previousLoanremainingAmount: professionArr.previousLoanremainingAmount,
+        //     previousLoandeafulterCount: professionArr.previousLoandeafulterCount,
+        //     previousLoanStatus: professionArr.previousLoanStatus,
+        //     previousLoanRemark: professionArr.previousLoanRemark,
+        // }).then(() => {
+        //     console.log("success");
+        // });
     }
 
     return (
@@ -105,7 +117,7 @@ const ProfessionDetails = (props) => {
                                     <label for="inputptype" className="form-label">Profession Type :</label>
                                 </div>
                                 <div>
-                                    <select id="inputptype" className="form-select" name="professiontype" value={professionArr.professiontype}
+                                    <select id="inputptype" className="form-select" name="professiontype" value={profArr.professiontype}
                                         onChange={handleChangeProfessional} >
                                         <option selected>Please select</option>
                                         <option>Goverment</option>
@@ -118,7 +130,7 @@ const ProfessionDetails = (props) => {
                             <div className="col-md-4">
                                 <label for="inputdesignation" className="form-label">Designation :</label>
                                 <input type="text" className="form-control" id="inputdesignation" placeholder="Enter Your Designation"
-                                    name="professionDesignation" value={professionArr.professionDesignation}
+                                    name="professionDesignation" value={profArr.professionDesignation}
                                     onChange={handleChangeProfessional} />
                             </div>
 
@@ -127,7 +139,7 @@ const ProfessionDetails = (props) => {
                                     <label for="inputsalaryType" className="form-label">Salary Type :</label>
                                 </div>
                                 <div>
-                                    <select id="inputsalaryType" className="form-select" name="professionsalaryType" value={professionArr.professionsalaryType}
+                                    <select id="inputsalaryType" className="form-select" name="professionsalaryType" value={profArr.professionsalaryType}
                                         onChange={handleChangeProfessional} >
                                         <option selected>Please select</option>
                                         <option>Cash</option>
@@ -142,13 +154,13 @@ const ProfessionDetails = (props) => {
                             <div className="col-md-4">
                                 <label for="inputSalary" className="form-label">Annual Salary :</label>
                                 <input type="number" className="form-control" id="inputSalary" placeholder="Enter Your Annual Salary"
-                                    name="professionsalary" value={professionArr.professionsalary}
+                                    name="professionsalary" value={profArr.professionsalary}
                                     onChange={handleChangeProfessional} />
                             </div>
                             <div className="col-md-4">
                                 <label for="inputworkingperiod" className="form-label">Working Period :</label>
                                 <input type="text" className="form-control" id="inputworkingperiod" placeholder="Enter Working Period"
-                                    name="professionworkingperiod" value={professionArr.professionworkingperiod} onChange={handleChangeProfessional} />
+                                    name="professionworkingperiod" value={profArr.professionworkingperiod} onChange={handleChangeProfessional} />
                             </div>
                         </div>
                         <div className="row g-3">

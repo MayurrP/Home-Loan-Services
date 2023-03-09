@@ -6,8 +6,10 @@ const AddressDetails = (props) => {
     const [local, setlocal] = useState('');
     const [permanent, setpermanent] = useState('');
 
-    props.onAddressDetails(local,permanent);
-    console.log(local,permanent);
+    props.onlocalAddressDetails(local);
+    props.onpermanentAddressDetails(permanent);
+
+   // console.log(local,permanent);
     return(
         <div>
         <LocalAddress onLocalAddress={setlocal}></LocalAddress>

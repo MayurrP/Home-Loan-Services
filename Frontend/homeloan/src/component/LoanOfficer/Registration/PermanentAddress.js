@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import axios from "axios";
+//import axios from "axios";
 const PermanentAddress = (props) => {
 
     const [permanentArr, setpermanentArr] = useState({
@@ -18,18 +18,18 @@ const PermanentAddress = (props) => {
             streetName: ""
         })
         props.onPermanentAddress(permanentArr);
-        console.log(permanentArr);
-        axios.post('http://localhost:8080/permanentaddresscontroller/permanentaddress', {
-            inputareaname:permanentArr.inputareaname, 
-            cityname:permanentArr.cityname, 
-            district:permanentArr.district, 
-            state:permanentArr.state, 
-            pincode:permanentArr.pincode, 
-            houseNumber:permanentArr.houseNumber,
-            streetName:permanentArr.streetName,
-          }).then(() => {
-            console.log("success");
-          });
+       // console.log(permanentArr);
+        // axios.post('http://localhost:8080/permanentaddresscontroller/permanentaddress', {
+        //     inputareaname:permanentArr.inputareaname, 
+        //     cityname:permanentArr.cityname, 
+        //     district:permanentArr.district, 
+        //     state:permanentArr.state, 
+        //     pincode:permanentArr.pincode, 
+        //     houseNumber:permanentArr.houseNumber,
+        //     streetName:permanentArr.streetName,
+        //   }).then(() => {
+        //     console.log("success");
+        //   });
     }
     return (
         <div className="container">
