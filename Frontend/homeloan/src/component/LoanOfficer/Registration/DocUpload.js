@@ -194,7 +194,7 @@ const DocUpload = (props) => {
                 </div>
                 <br></br>
                 <div class="row g-3 pt-2">
-                    <div class="col-12" align="center">
+                    <div class="col-12">
                         <button type="button" class="btn btn-outline-info"
                             onClick={addDocs}>save</button> &nbsp;&nbsp;
                     </div>

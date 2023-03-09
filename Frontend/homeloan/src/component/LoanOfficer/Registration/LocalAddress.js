@@ -114,7 +114,7 @@ const LocalAddress = (props) => {
                             </div>
                         </div>
                         <br></br>
-                        <div align="center">
+                        <div>
                             <button type="button" className="btn btn-info"
                                 onClick={addAddressData} >Save</button>&nbsp;&nbsp;
                         </div>

@@ -218,7 +218,7 @@ const AppPersonalDetails = (props) => {
                             </div>
                         </div>
                         <br></br>
-                        <div align="center">
+                        <div>
                             <button type="button" className="btn btn-info"
                                 onClick={addAppPersonalData} >Save</button>&nbsp;&nbsp;
                         </div>

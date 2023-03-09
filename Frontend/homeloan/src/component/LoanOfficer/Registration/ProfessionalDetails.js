@@ -381,7 +381,7 @@ const ProfessionDetails = (props) => {
                         </div>
                     </div>
                     <br></br>
-                    <div align="center">
+                    <div>
                         <button type="button" className="btn btn-info"
                             onClick={addProfession} >Save</button>&nbsp;&nbsp;
                     </div>                </div>

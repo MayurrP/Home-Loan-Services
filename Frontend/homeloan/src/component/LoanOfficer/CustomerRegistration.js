@@ -34,6 +34,8 @@ const CustomerRegistration = () => {
     const [thumb, setthumb] = useState([]);
     const [bankCheque, setbankCheque] = useState([]);
     const [salarySlips, setsalarySlips] = useState([]);
+    const [isvisible, setIsvisible] = useState("hide");
+
     const [custArr, setcustArr] = useState({
         customerName: "",
         customerDateOfBirth: "",
@@ -247,17 +249,26 @@ const CustomerRegistration = () => {
             currentMonthEmiStatus: "",
             loanEndDate: "",
             loanStatus: ""
-}});
-
+        }
+    });
 
     const handleBack = () => {
         setStep(step - 1);
+        if (step ===1 || step === 2 || step === 3 || step ===4 || step === 5) {
+            setIsvisible("hide");
+        }else{
+            setIsvisible("btn btn-outline-success");
+        }
     };
 
     const handleNext = () => {
         setStep(step + 1);
+        if (step ===1 || step === 2 || step === 3 || step ===4) {
+            setIsvisible("hide");
+        }else{
+            setIsvisible("btn btn-outline-success");
+        }
     };
-
 
     const submitRegistrationForm = async () => {
         setcustArr(
@@ -575,8 +586,10 @@ const CustomerRegistration = () => {
                         onClick={handleBack} disabled={step === 1}>Previous</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="button" id="btnnext" className="btn btn-outline-success"
                         onClick={handleNext} disabled={step === 6}>Next</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <button type="button" id="btnsubmit" className="btn btn-outline-success"
-                        onClick={submitRegistrationForm}>Submit</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <button type="button" id="btnsubmit" className={isvisible}
+                        onClick={submitRegistrationForm}
+                        disabled={step === 1 || step === 2 || step === 3 || step === 4 || step === 5}
+                    >Submit</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
 
             </div>
