@@ -1,25 +1,112 @@
 import React from "react";
+import { useState } from 'react';
+import axios from "axios";
 
-const ProfessionDetails = () => {
+const ProfessionDetails = (props) => {
+
+    const [selectedFile, setSelectedFile] = useState(null);
+    const handleFileInputChange = (event) => {
+        setSelectedFile(event.target.files[0]);
+    };
+
+    const [professionArr, setprofessionArr] = useState({
+        professiontype: "", professionsalary: "", professionsalaryType: "", professionworkingperiod: "",
+        previousLoanremainingAmount: "", previousLoandeafulterCount: "", previousLoanStatus: "", previousLoanRemark: "",
+        branchName: "", branchCode: "", branchType: "", ifsccode: "", micrcode: "", conatctNumber: "", email: "",
+        status: "", areaname: "", cityname: "", district: "", state: "", pincode: "", streetName: ""
+    });
+
+    const handleChangeProfessional = (e) => {
+        setprofessionArr({ ...professionArr, [e.target.name]: e.target.value });
+    };
+
+    const addProfession = async () => {
+        setprofessionArr({
+            professiontype: "", professionsalary: "", professionsalaryType: "", professionworkingperiod: "",
+            professionDesignation: "", previousLoanAmount: "", previousLoanTenure: "", previousLoanpaidAmount: "",
+            previousLoanremainingAmount: "", previousLoandeafulterCount: "", previousLoanStatus: "", previousLoanRemark: "",
+            branchName: "", branchCode: "", branchType: "", ifsccode: "", micrcode: "", conatctNumber: "", email: "",
+            status: "", areaname: "", cityname: "", district: "", state: "", pincode: "", streetName: ""
+        })
+        props.onProfessionDetails(professionArr);
+        console.log(professionArr);
+
+        axios.post('http://localhost:8080/PreviousLoanController/previousloan', {
+            previousLoanAmount: professionArr.previousLoanAmount,
+            previousLoanTenure: professionArr.previousLoanTenure,
+            previousLoanpaidAmount: professionArr.previousLoanpaidAmount,
+            previousLoanremainingAmount: professionArr.previousLoanremainingAmount,
+            previousLoandeafulterCount: professionArr.previousLoandeafulterCount,
+            previousLoanStatus: professionArr.previousLoanStatus,
+            previousLoanRemark: professionArr.previousLoanRemark,
+        }).then(() => {
+            console.log("success");
+        });
+
+        // axios.post('http://localhost:8080/PreviousLoanController/previousloan', {
+        //     branchName: professionArr.branchName,
+        // branchCode: professionArr.branchCode,
+        // branchType: professionArr.branchType,
+        // ifsccode: professionArr.ifsccode,
+        // micrcode: professionArr.micrcode,
+        // conatctNumber: professionArr.conatctNumber,
+        // email: professionArr.email,
+        // status: professionArr.status,
+        // }).then(() => {
+        //     console.log("success");
+        // });
+
+
+        // axios.post('http://localhost:8080/PreviousLoanController/previousloan', {
+        //   areaname: professionArr.areaname,
+        //   cityname: professionArr.cityname,
+        //   district: professionArr.district,
+        //   state: professionArr.state,
+        //   pincode: professionArr.pincode,
+        //   streetName: professionArr.streetName,
+        // }).then(() => {
+        //     console.log("success");
+        // });
+
+        const formData = new FormData();
+
+        formData.append('professionsalaryslips', selectedFile);
+        formData.append('professionArr', JSON.stringify(professionArr));
+
+        console.log(professionArr);
+        console.log(formData);
+
+        try {
+            const response = await axios.post('http://localhost:8080/Profession/profession/', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            });
+            console.log(response.data);
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return (
         <div className="container">
             <form>
                 <div className="sub3">
-                    <div class="row g-3 pt-2">
-                        <div class="col">
+                    <div className="row g-3 pt-2">
+                        <div className="col">
                             <h5>Professional Details</h5>
                         </div>
                     </div>
 
                     <div formGroupName="profession">
-                        <div class="row g-3">
-                            <div class="col-md-4">
+                        <div className="row g-3">
+                            <div className="col-md-4">
                                 <div>
-                                    <label for="inputptype" class="form-label">Profession Type :</label>
+                                    <label for="inputptype" className="form-label">Profession Type :</label>
                                 </div>
                                 <div>
-                                    <select id="inputptype" class="form-select" name="professiontype">
+                                    <select id="inputptype" className="form-select" name="professiontype" value={professionArr.professiontype}
+                                        onChange={handleChangeProfessional} >
                                         <option selected>Please select</option>
                                         <option>Goverment</option>
                                         <option>Private</option>
@@ -28,18 +115,20 @@ const ProfessionDetails = () => {
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <label for="inputdesignation" class="form-label">Designation :</label>
-                                <input type="text" class="form-control" id="inputdesignation" placeholder="Enter Your Designation"
-                                    name="professionDesignation" />
+                            <div className="col-md-4">
+                                <label for="inputdesignation" className="form-label">Designation :</label>
+                                <input type="text" className="form-control" id="inputdesignation" placeholder="Enter Your Designation"
+                                    name="professionDesignation" value={professionArr.professionDesignation}
+                                    onChange={handleChangeProfessional} />
                             </div>
 
-                            <div class="col-md-4">
+                            <div className="col-md-4">
                                 <div>
-                                    <label for="inputsalaryType" class="form-label">Salary Type :</label>
+                                    <label for="inputsalaryType" className="form-label">Salary Type :</label>
                                 </div>
                                 <div>
-                                    <select id="inputsalaryType" class="form-select" name="professionsalaryType">
+                                    <select id="inputsalaryType" className="form-select" name="professionsalaryType" value={professionArr.professionsalaryType}
+                                        onChange={handleChangeProfessional} >
                                         <option selected>Please select</option>
                                         <option>Cash</option>
                                         <option>Account</option>
@@ -49,79 +138,88 @@ const ProfessionDetails = () => {
                             </div>
                         </div>
 
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <label for="inputSalary" class="form-label">Annual Salary :</label>
-                                <input type="number" class="form-control" id="inputSalary" placeholder="Enter Your Annual Salary"
-                                    name="professionsalary" />
+                        <div className="row g-3">
+                            <div className="col-md-4">
+                                <label for="inputSalary" className="form-label">Annual Salary :</label>
+                                <input type="number" className="form-control" id="inputSalary" placeholder="Enter Your Annual Salary"
+                                    name="professionsalary" value={professionArr.professionsalary}
+                                    onChange={handleChangeProfessional} />
                             </div>
-                            <div class="col-md-4">
-                                <label for="inputworkingperiod" class="form-label">Working Period :</label>
-                                <input type="text" class="form-control" id="inputworkingperiod" placeholder="Enter Working Period"
-                                    name="professionworkingperiod" />
+                            <div className="col-md-4">
+                                <label for="inputworkingperiod" className="form-label">Working Period :</label>
+                                <input type="text" className="form-control" id="inputworkingperiod" placeholder="Enter Working Period"
+                                    name="professionworkingperiod" value={professionArr.professionworkingperiod} onChange={handleChangeProfessional} />
                             </div>
                         </div>
-                        <div class="row g-3">
-                            <div class="was-validated">
-                                <div class="col-md-10">
-                                    <label for="inputsalaryslip" class="form-label">Salary Slip :</label>
-                                    <input type="file" class="form-control" aria-label="file example" required />
-                                    <div class="invalid-feedback">Please Select File</div>
+                        <div className="row g-3">
+                            <div className="was-validated">
+                                <div className="col-md-10">
+                                    <label for="inputsalaryslip" className="form-label">Salary Slip :</label>
+                                    <input type="file" className="form-control" aria-label="file example" required name="salarySlip"
+                                        onChange={handleFileInputChange} />
+                                    <div className="invalid-feedback">Please Select File</div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row g-3 pt-2">
-                    <div class="col">
+                <div className="row g-3 pt-2">
+                    <div className="col">
                         <h5>Previous Loan Details</h5>
                     </div>
                 </div>
 
                 <div formGroupName="previousloan">
-                    <div class="row g-3">
-                        <div class="col-md-4">
-                            <label for="inputploanamount" class="form-label">Previous Loan Amount :</label>
-                            <input type="number" class="form-control" id="inputploanamount" placeholder="Enter Previous Loan Amount"
-                                name="previousLoanAmount" />
+                    <div className="row g-3">
+                        <div className="col-md-4">
+                            <label for="inputploanamount" className="form-label">Previous Loan Amount :</label>
+                            <input type="number" className="form-control" id="inputploanamount" placeholder="Enter Previous Loan Amount"
+                                name="previousLoanAmount" value={professionArr.previousLoanAmount}
+                                onChange={handleChangeProfessional} />
 
                         </div>
-                        <div class="col-md-4">
-                            <label for="inputptenure" class="form-label"> Tenure :</label>
-                            <input type="number" class="form-control" id="inputptenure" placeholder="Enter Previous Tenure (in Months)"
-                                name="previousLoanTenure" />
+                        <div className="col-md-4">
+                            <label for="inputptenure" className="form-label"> Tenure :</label>
+                            <input type="number" className="form-control" id="inputptenure" placeholder="Enter Previous Tenure (in Months)"
+                                name="previousLoanTenure" value={professionArr.previousLoanTenure}
+                                onChange={handleChangeProfessional} />
                         </div>
-                        <div class="col-md-4">
-                            <label for="inputpaidamount" class="form-label">Paid Amount :</label>
-                            <input type="number" class="form-control" id="inputpaidamount" placeholder="Enter Paid Amount"
-                                name="previousLoanpaidAmount" />
-                        </div>
-
-                        <div class="col-md-4">
-                            <label for="inputremainingAmount" class="form-label">Remaining Amount :</label>
-                            <input type="number" class="form-control" id="inputremainingAmount" placeholder="Enter Remaining Amount"
-                                name="previousLoanremainingAmount" />
+                        <div className="col-md-4">
+                            <label for="inputpaidamount" className="form-label">Paid Amount :</label>
+                            <input type="number" className="form-control" id="inputpaidamount" placeholder="Enter Paid Amount"
+                                name="previousLoanpaidAmount" value={professionArr.previousLoanpaidAmount}
+                                onChange={handleChangeProfessional} />
                         </div>
 
-                        <div class="col-md-4">
-                            <label for="inputdeafulterCount" class="form-label">Deafulter Count :</label>
-                            <input type="number" class="form-control" id="inputdeafulterCount" placeholder="Enter Deafulter Count"
-                                name="previousLoandeafulterCount" />
+                        <div className="col-md-4">
+                            <label for="inputremainingAmount" className="form-label">Remaining Amount :</label>
+                            <input type="number" className="form-control" id="inputremainingAmount" placeholder="Enter Remaining Amount"
+                                name="previousLoanremainingAmount" value={professionArr.previousLoanremainingAmount}
+                                onChange={handleChangeProfessional} />
+                        </div>
+
+                        <div className="col-md-4">
+                            <label for="inputdeafulterCount" className="form-label">Deafulter Count :</label>
+                            <input type="number" className="form-control" id="inputdeafulterCount" placeholder="Enter Deafulter Count"
+                                name="previousLoandeafulterCount" value={professionArr.previousLoandeafulterCount}
+                                onChange={handleChangeProfessional} />
                         </div>
                     </div>
 
-                    <div class="row g-3">
-                        <div class="row g-3">&nbsp;&nbsp;
-                            <div class="col-md-4">
-                                <label for="inputremark" class="form-label">Remark :</label>
-                                <input type="text" class="form-control" id="inputremark" placeholder="Enter Remark"
-                                    name="previousLoanRemark" />
+                    <div className="row g-3">
+                        <div className="row g-3">&nbsp;&nbsp;
+                            <div className="col-md-4">
+                                <label for="inputremark" className="form-label">Remark :</label>
+                                <input type="text" className="form-control" id="inputremark" placeholder="Enter Remark"
+                                    name="previousLoanRemark" value={professionArr.previousLoanRemark}
+                                    onChange={handleChangeProfessional} />
                             </div>&nbsp;
-                            <div class="col-md-4">
-                                <label for="inputstatus" class="form-label">Status :</label>
-                                <input type="text" class="form-control" id="inputstatus" placeholder="Enter Status"
-                                    name="previousLoanStatus" />
+                            <div className="col-md-4">
+                                <label for="inputstatus" className="form-label">Status :</label>
+                                <input type="text" className="form-control" id="inputstatus" placeholder="Enter Status"
+                                    name="previousLoanStatus" value={professionArr.previousLoanStatus}
+                                    onChange={handleChangeProfessional} />
                             </div>
                         </div>
                     </div>
@@ -129,56 +227,64 @@ const ProfessionDetails = () => {
 
 
                 <div formGroupName="previousloan">
-                    <div class="row g-3 pt-2">
-                        <div class="col">
+                    <div className="row g-3 pt-2">
+                        <div className="col">
                             <h6>Previous Loan Bank Details</h6>
                         </div>
                     </div>
 
                     <div formGroupName="previousLoanbankDetails">
-                        <div class="row g-3">
-                            <div class="col-md-4">
-                                <label for="inputbranchName" class="form-label">Branch Name :</label>
-                                <input type="text" class="form-control" id="inputbranchName" placeholder="Enter Branch Name"
-                                    name="branchName" />
+                        <div className="row g-3">
+                            <div className="col-md-4">
+                                <label for="inputbranchName" className="form-label">Branch Name :</label>
+                                <input type="text" className="form-control" id="inputbranchName" placeholder="Enter Branch Name"
+                                    name="branchName" value={professionArr.branchName}
+                                    onChange={handleChangeProfessional} />
                             </div>
-                            <div class="col-md-4">
-                                <label for="inputbranchCode" class="form-label">Branch Code :</label>
-                                <input type="text" class="form-control" id="inputbranchCode" placeholder="Enter Branch Code"
-                                    name="branchCode" />
+                            <div className="col-md-4">
+                                <label for="inputbranchCode" className="form-label">Branch Code :</label>
+                                <input type="text" className="form-control" id="inputbranchCode" placeholder="Enter Branch Code"
+                                    name="branchCode" value={professionArr.branchCode}
+                                    onChange={handleChangeProfessional} />
                             </div>
-                            <div class="col-md-4">
-                                <label for="inputbranchtype" class="form-label">Branch Type :</label>
-                                <select id="inputbranchtype" class="form-select" name="branchType">
+                            <div className="col-md-4">
+                                <label for="inputbranchtype" className="form-label">Branch Type :</label>
+                                <select id="inputbranchtype" className="form-select" name="branchType" value={professionArr.branchType}
+                                    onChange={handleChangeProfessional}>
                                     <option selected>Please select</option>
                                     <option>Main</option>
                                     <option>Sub</option>
                                 </select>
                             </div>
-                            <div class="col-md-4">
-                                <label for="inputIFSCcode" class="form-label">IFSC code :</label>
-                                <input type="text" class="form-control" id="inputIFSCcode" placeholder="Enter IFSC code"
-                                    name="ifsccode" />
+                            <div className="col-md-4">
+                                <label for="inputIFSCcode" className="form-label">IFSC code :</label>
+                                <input type="text" className="form-control" id="inputIFSCcode" placeholder="Enter IFSC code"
+                                    name="ifsccode" value={professionArr.ifsccode}
+                                    onChange={handleChangeProfessional} />
                             </div>
-                            <div class="col-md-4">
-                                <label for="inputMICRcode" class="form-label">MICR code :</label>
-                                <input type="text" class="form-control" id="inputMICRcode" placeholder="Enter MICR code"
-                                    name="micrcode" />
+                            <div className="col-md-4">
+                                <label for="inputMICRcode" className="form-label">MICR code :</label>
+                                <input type="text" className="form-control" id="inputMICRcode" placeholder="Enter MICR code"
+                                    name="micrcode" value={professionArr.micrcode}
+                                    onChange={handleChangeProfessional} />
                             </div>
-                            <div class="col-md-4">
-                                <label for="inputConatctNo" class="form-label">Conatct No :</label>
-                                <input type="number" class="form-control" id="inputConatctNo" placeholder="Enter Branch Conatct No"
-                                    name="conatctNumber" />
+                            <div className="col-md-4">
+                                <label for="inputConatctNo" className="form-label">Conatct No :</label>
+                                <input type="number" className="form-control" id="inputConatctNo" placeholder="Enter Branch Conatct No"
+                                    name="conatctNumber" value={professionArr.conatctNumber}
+                                    onChange={handleChangeProfessional} />
                             </div>
-                            <div class="col-md-4">
-                                <label for="inputEmail" class="form-label">Email Id :</label>
-                                <input type="email" class="form-control" id="inputbranchName" placeholder="Enter Branch Email Id"
-                                    name="email" />
+                            <div className="col-md-4">
+                                <label for="inputEmail" className="form-label">Email Id :</label>
+                                <input type="email" className="form-control" id="inputbranchName" placeholder="Enter Branch Email Id"
+                                    name="email" value={professionArr.email}
+                                    onChange={handleChangeProfessional} />
                             </div>
-                            <div class="col-md-4">
-                                <label for="inputstatus" class="form-label">Status :</label>
-                                <input type="text" class="form-control" id="inputstatus" placeholder="Enter Status"
-                                    name="status" />
+                            <div className="col-md-4">
+                                <label for="inputstatus" className="form-label">Status :</label>
+                                <input type="text" className="form-control" id="inputstatus" placeholder="Enter Status"
+                                    name="status" value={professionArr.status}
+                                    onChange={handleChangeProfessional} />
                             </div>
 
                         </div>
@@ -191,42 +297,47 @@ const ProfessionDetails = () => {
                 <div formGroupName="previousloan">
                     <div formGroupName="previousLoanbankDetails">
                         <div formGroupName="bankAddress">
-                            <div class="row g-3 pt-2">
-                                <div class="col">
+                            <div className="row g-3 pt-2">
+                                <div className="col">
                                     <h5>Bank Address</h5>
                                 </div>
                             </div>
                             <div>
 
-                                <div class="row g-3">
-                                    <div class="col-md-4">
-                                        <label for="areaname" class="form-label">Area Name :</label>
-                                        <input type="text" class="form-control" id="inputareaname" placeholder="Enter Area Name"
-                                            name="areaname" />
+                                <div className="row g-3">
+                                    <div className="col-md-4">
+                                        <label for="areaname" className="form-label">Area Name :</label>
+                                        <input type="text" className="form-control" id="inputareaname" placeholder="Enter Area Name"
+                                            name="areaname" value={professionArr.areaname}
+                                            onChange={handleChangeProfessional} />
                                     </div>
-                                    <div class="col-md-4">
-                                        <label for="streetname" class="form-label">Street Name :</label>
-                                        <input type="text" class="form-control" id="inputareaname" placeholder="Enter Street Name"
-                                            name="streetName" />
+                                    <div className="col-md-4">
+                                        <label for="streetname" className="form-label">Street Name :</label>
+                                        <input type="text" className="form-control" id="inputareaname" placeholder="Enter Street Name"
+                                            name="streetName" value={professionArr.streetName}
+                                            onChange={handleChangeProfessional} />
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div className="col-md-4">
                                         <div>
-                                            <label for="inputcity" class="form-label">City :</label>
-                                            <input type="text" class="form-control" id="inputcity" placeholder="Enter Your City" />
+                                            <label for="inputcity" className="form-label">City :</label>
+                                            <input type="text" className="form-control" id="inputcity" placeholder="Enter Your City" name="city" value={professionArr.city}
+                                                onChange={handleChangeProfessional} />
                                         </div>
                                     </div>
-                                    <div class="col-md-4">
+                                    <div className="col-md-4">
                                         <div>
-                                            <label for="inputdistrict" class="form-label">District :</label>
-                                            <input type="text" class="form-control" id="inputdistrict" placeholder="Enter Your District" />
+                                            <label for="inputdistrict" className="form-label">District :</label>
+                                            <input type="text" className="form-control" id="inputdistrict" placeholder="Enter Your District" name="district" value={professionArr.district}
+                                                onChange={handleChangeProfessional} />
                                         </div>
                                     </div>
                                     <div>
-                                        <label for="inputstate" class="form-label">State :</label>
+                                        <label for="inputstate" className="form-label">State :</label>
                                     </div>
                                     <div>
-                                        <select id="inputstate" class="form-select" name="state">
+                                        <select id="inputstate" className="form-select" name="state" value={professionArr.state}
+                                            onChange={handleChangeProfessional}>
                                             <option selected>Please select</option>
                                             <option value="bihar">Bihar</option>
                                             <option value="jharkhand">Jharkhand</option>
@@ -248,16 +359,20 @@ const ProfessionDetails = () => {
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="inputpincode" class="form-label">Pincode :</label>
-                                    <input type="number" class="form-control" id="inputpincode" placeholder="Enter Pincode No"
-                                        name="pincode" />
+                                <div className="col-md-4">
+                                    <label for="inputpincode" className="form-label">Pincode :</label>
+                                    <input type="number" className="form-control" id="inputpincode" placeholder="Enter Pincode No"
+                                        name="pincode" value={professionArr.pincode}
+                                        onChange={handleChangeProfessional} />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <br></br>
-                </div>
+                    <div align="center">
+                        <button type="button" className="btn btn-info"
+                            onClick={addProfession} >Save</button>&nbsp;&nbsp;
+                    </div>                </div>
             </form>
         </div>
     )
